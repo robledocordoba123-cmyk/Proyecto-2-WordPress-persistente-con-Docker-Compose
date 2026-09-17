@@ -49,10 +49,42 @@ Un `depends_on` simple solo espera a que el contenedor de la base de datos *inic
 
 ## Evidencias
 
-- Captura de `docker compose ps` con ambos servicios `Up` (`db` en estado `healthy`).
-- Captura de `docker volume ls` mostrando los volúmenes `db_data` y `wp_data`.
-- Captura del sitio WordPress instalado con una entrada de prueba publicada.
-- Captura de la prueba de persistencia: `docker compose down`, `docker compose up -d`, y la entrada de prueba sigue publicada.
+### Creación del repositorio
+![Repositorio creado en GitHub](evidencias/e01.png)
+
+### docker-compose con WordPress, MySQL y volúmenes
+Se agrega el `docker-compose.yml` con los servicios `db` y `wordpress`, volúmenes nombrados, red personalizada y healthcheck, y se sube al repositorio.
+
+![Commit del docker-compose](evidencias/e02.png)
+
+### Servicios levantados y sitio WordPress
+Se crea el archivo `.env`, se levantan los servicios con `docker compose up -d` (MySQL queda `healthy` antes de que arranque WordPress) y se completa la instalación desde el navegador.
+
+![Servicios levantados](evidencias/e03.png)
+![Panel de WordPress](evidencias/e04.png)
+![Configuración del sitio](evidencias/e05.png)
+![Editor de WordPress](evidencias/e06.png)
+
+### Publicación de la entrada de prueba
+Se crea y publica una entrada llamada "Prueba de persistencia" para verificar más adelante que los datos sobreviven a un reinicio de los contenedores.
+
+![Creación de la entrada](evidencias/e07.png)
+![Entrada publicada](evidencias/e08.png)
+![Confirmación de publicación](evidencias/e09.png)
+![Entrada en estado Publicada](evidencias/e10.png)
+
+### Prueba de persistencia y volúmenes
+Se detienen los contenedores con `docker compose down` (sin `-v`) y se vuelven a levantar con `docker compose up -d`: la entrada de prueba sigue publicada, y `docker volume ls` confirma que los volúmenes `db_data` y `wp_data` nunca se eliminaron.
+
+![Volúmenes persistentes](evidencias/e11.png)
+![Commit final del README](evidencias/e12.png)
+
+### Flujo de Pull Request
+Se crea una rama corta, se abre un Pull Request hacia `main` y se fusiona, dejando el repositorio con una sola rama (`main`) pero con el historial del PR.
+
+![Rama y Pull Request](evidencias/e13.png)
+![Confirmación de la fusión](evidencias/e14.png)
+![Pull Request fusionado](evidencias/e15.png)
 
 ## Autor
 
